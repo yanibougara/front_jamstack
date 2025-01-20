@@ -1,6 +1,22 @@
+"use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { fetchHeroes } from "./utils/api";
+import type { Home } from "./utils/api";
 
 export default function Home() {
+    const [home, setHome] = useState<Home[]>([]);
+
+        useEffect(() => {
+            const getHome = async () => {
+                const data = await fetchHeroes();
+                console.log("data", data);
+                setHome(data);
+            };
+    
+            getHome();
+        }, []);
+
     return (
         <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
             <main className="flex flex-col gap-8 row-start-2 sm:items-start">
@@ -17,7 +33,7 @@ export default function Home() {
 
                 <h1 className="text-4xl font-bold">Warhammer 40,000</h1>
                 <img
-                    src="/path/to/warhammer-image.jpg"
+                    src={home[0]?.image.url}
                     alt="Warhammer 40,000"
                     className="w-full h-auto mt-4"
                 />

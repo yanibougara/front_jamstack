@@ -29,6 +29,12 @@ export interface Troop {
     name: string;
 }
 
+export interface Home {
+    image: {
+        url: string;
+    };
+}
+
 export const fetchHeroes = async (): Promise<Hero[]> => {
     const response = await axios.get(`${API_URL}/heroes?populate=image`);
     return response.data.data;
@@ -36,5 +42,10 @@ export const fetchHeroes = async (): Promise<Hero[]> => {
 
 export const fetchTroops = async (): Promise<Troop[]> => {
     const response = await axios.get(`${API_URL}/troops?populate=image`);
+    return response.data.data;
+};
+
+export const fetchHome = async (): Promise<Home[]> => {
+    const response = await axios.get(`${API_URL}/homes?populate=image`);
     return response.data.data;
 };
